@@ -23,7 +23,7 @@ local mocha = {
    surface2 = '#585b70',
    surface1 = '#45475a',
    surface0 = '#313244',
-   base = '#1f1f28',
+   base = '#1e1e2e',
    mantle = '#181825',
    crust = '#11111b',
 }
@@ -36,25 +36,49 @@ local colorscheme = {
    cursor_fg = mocha.crust,
    selection_bg = mocha.surface2,
    selection_fg = mocha.text,
+   -- {
+   --       "background": "#1E1E2E",
+   --       "black": "#45475A",
+   --       "blue": "#89B4FA",
+   --       "brightBlack": "#585B70",
+   --       "brightBlue": "#89B4FA",
+   --       "brightCyan": "#94E2D5",
+   --       "brightGreen": "#A6E3A1",
+   --       "brightPurple": "#F5C2E7",
+   --       "brightRed": "#F38BA8",
+   --       "brightWhite": "#A6ADC8",
+   --       "brightYellow": "#F9E2AF",
+   --       "cursorColor": "#F5E0DC",
+   --       "cyan": "#94E2D5",
+   --       "foreground": "#CDD6F4",
+   --       "green": "#A6E3A1",
+   --       "name": "Catppuccin Mocha",
+   --       "purple": "#F5C2E7",
+   --       "red": "#F38BA8",
+   --       "selectionBackground": "#585B70",
+   --       "white": "#BAC2DE",
+   --       "yellow": "#F9E2AF"
+   --   },
    ansi = {
-      '#0C0C0C', -- black
-      '#C50F1F', -- red
-      '#13A10E', -- green
-      '#C19C00', -- yellow
-      '#0037DA', -- blue
-      '#881798', -- magenta/purple
-      '#3A96DD', -- cyan
-      '#CCCCCC', -- white
+      mocha.surface1,
+      mocha.red,
+      mocha.green,
+      mocha.yellow,
+      mocha.blue,
+      mocha.pink,
+      mocha.teal,
+      mocha.subtext1,
    },
+
    brights = {
-      '#767676', -- black
-      '#E74856', -- red
-      '#16C60C', -- green
-      '#F9F1A5', -- yellow
-      '#3B78FF', -- blue
-      '#B4009E', -- magenta/purple
-      '#61D6D6', -- cyan
-      '#F2F2F2', -- white
+      mocha.surface2,
+      mocha.red,
+      mocha.green,
+      mocha.yellow,
+      mocha.blue,
+      mocha.pink,
+      mocha.teal,
+      mocha.subtext0,
    },
    tab_bar = {
       background = 'rgba(0, 0, 0, 0.4)',

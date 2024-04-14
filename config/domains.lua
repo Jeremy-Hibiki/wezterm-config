@@ -8,10 +8,10 @@ return {
    -- ref: https://wezfurlong.org/wezterm/config/lua/WslDomain.html
    wsl_domains = {
       {
-         name = 'WSL:Ubuntu',
-         distribution = 'Ubuntu',
-         username = 'kevin',
-         default_cwd = '/home/kevin',
+         name = 'WSL:Arch',
+         distribution = 'Arch',
+         username = 'jeremy',
+         default_cwd = '/home/jeremy',
          default_prog = { 'fish', '-l' },
       },
    },

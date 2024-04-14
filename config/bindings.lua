@@ -1,6 +1,5 @@
 local wezterm = require('wezterm')
 local platform = require('utils.platform')()
-local backdrops = require('utils.backdrops')
 local act = wezterm.action
 
 local mod = {}
@@ -46,13 +45,38 @@ local keys = {
    },
 
    -- copy/paste --
-   { key = 'c', mods = 'CTRL|SHIFT',  action = act.CopyTo('Clipboard') },
+   {
+      key = 'c',
+      mods = 'CTRL|SHIFT',
+      action = wezterm.action_callback(function(window, pane)
+         selection_text = window:get_selection_text_for_pane(pane)
+         is_selection_active = string.len(selection_text) ~= 0
+         if is_selection_active then
+            window:perform_action(wezterm.action.CopyTo('ClipboardAndPrimarySelection'), pane)
+         else
+            window:perform_action(wezterm.action.SendKey { key = 'c', mods = 'CTRL|SHIFT' }, pane)
+         end
+      end),
+   },
+   {
+      key = 'c',
+      mods = 'CTRL',
+      action = wezterm.action_callback(function(window, pane)
+         selection_text = window:get_selection_text_for_pane(pane)
+         is_selection_active = string.len(selection_text) ~= 0
+         if is_selection_active then
+            window:perform_action(wezterm.action.CopyTo('ClipboardAndPrimarySelection'), pane)
+         else
+            window:perform_action(wezterm.action.SendKey { key = 'c', mods = 'CTRL' }, pane)
+         end
+      end),
+   },
    { key = 'v', mods = 'CTRL|SHIFT',  action = act.PasteFrom('Clipboard') },
+   { key = 'v', mods = 'CTRL|SHIFT',  action = act.PasteFrom 'PrimarySelection' },
 
    -- tabs --
    -- tabs: spawn+close
    { key = 't', mods = mod.SUPER,     action = act.SpawnTab('DefaultDomain') },
-   { key = 't', mods = mod.SUPER_REV, action = act.SpawnTab({ DomainName = 'WSL:Ubuntu' }) },
    { key = 'w', mods = mod.SUPER_REV, action = act.CloseCurrentTab({ confirm = false }) },
 
    -- tabs: navigation
@@ -64,43 +88,6 @@ local keys = {
    -- window --
    -- spawn windows
    { key = 'n', mods = mod.SUPER,     action = act.SpawnWindow },
-
-   -- background controls --
-   {
-      key = [[/]],
-      mods = mod.SUPER,
-      action = wezterm.action_callback(function(window, _pane)
-         backdrops:random(window)
-      end),
-   },
-   {
-      key = [[,]],
-      mods = mod.SUPER,
-      action = wezterm.action_callback(function(window, _pane)
-         backdrops:cycle_back(window)
-      end),
-   },
-   {
-      key = [[.]],
-      mods = mod.SUPER,
-      action = wezterm.action_callback(function(window, _pane)
-         backdrops:cycle_forward(window)
-      end),
-   },
-   {
-      key = [[/]],
-      mods = mod.SUPER_REV,
-      action = act.InputSelector({
-         title = 'Select Background',
-         choices = backdrops:choices(),
-         fuzzy = true,
-         fuzzy_description = 'Select Background: ',
-         action = wezterm.action_callback(function(window, _pane, idx)
-            ---@diagnostic disable-next-line: param-type-mismatch
-            backdrops:set_img(window, tonumber(idx))
-         end),
-      }),
-   },
 
    -- panes --
    -- panes: split panes
@@ -174,6 +161,11 @@ local key_tables = {
 
 local mouse_bindings = {
    -- Ctrl-click will open the link under the mouse cursor
+   {
+      event = { Up = { streak = 1, button = 'Left' } },
+      mods = 'NONE',
+      action = act.CompleteSelection 'ClipboardAndPrimarySelection',
+   },
    {
       event = { Up = { streak = 1, button = 'Left' } },
       mods = 'CTRL',

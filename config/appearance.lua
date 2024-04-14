@@ -8,15 +8,15 @@ return {
    front_end = 'WebGpu',
    webgpu_power_preference = 'HighPerformance',
    webgpu_preferred_adapter = gpu_adapters:pick_best(),
+   
+   initial_cols = 120,
+   initial_rows = 40,
 
    -- color scheme
    colors = colors,
 
    -- background
    background = {
-      {
-         source = { File = wezterm.GLOBAL.background },
-      },
       {
          source = { Color = colors.background },
          height = '100%',
@@ -46,8 +46,6 @@ return {
    window_close_confirmation = 'NeverPrompt',
    window_frame = {
       active_titlebar_bg = '#090909',
-      -- font = fonts.font,
-      -- font_size = fonts.font_size,
    },
    inactive_pane_hsb = {
       saturation = 0.9,
