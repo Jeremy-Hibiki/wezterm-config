@@ -73,6 +73,8 @@ local keys = {
    },
    { key = 'v', mods = 'CTRL|SHIFT',  action = act.PasteFrom('Clipboard') },
    { key = 'v', mods = 'CTRL|SHIFT',  action = act.PasteFrom 'PrimarySelection' },
+   { key = 'v', mods = 'CTRL', action = act.PasteFrom 'Clipboard', },
+   { key = 'v', mods = 'CTRL', action = act.PasteFrom 'PrimarySelection' },
 
    -- tabs --
    -- tabs: spawn+close
